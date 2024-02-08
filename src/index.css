@@ -72,6 +72,14 @@ input {
   justify-content: center;
 }
 
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
 .justify-between {
   justify-content: space-between;
 }

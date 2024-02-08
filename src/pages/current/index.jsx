@@ -2,7 +2,16 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import Container from "../../components/Container";
+import { IoMdCart } from "react-icons/io";
+import eight from "../../assets/8.jpeg";
+import five from "../../assets/5.jpeg";
+import four from "../../assets/4.jpeg";
+import one from "../../assets/1.jpeg";
+import seven from "../../assets/7.jpeg";
+import six from "../../assets/6.jpeg";
 import styled from "styled-components";
+import three from "../../assets/3.jpeg";
+import two from "../../assets/2.jpeg";
 
 const Inner = styled.div`
   position: relative;
@@ -98,7 +107,13 @@ const Tab = styled.div`
 `;
 
 const Section = styled.div`
-  padding: 20px 0;
+  padding: 20px 0px;
+
+  h3 {
+    @media screen and (max-width: 768px) {
+      padding: 10px 20px;
+    }
+  }
 
   .inner {
     margin-top: 40px;
@@ -108,7 +123,62 @@ const Section = styled.div`
 `;
 
 const Box = styled.div`
-  height: 170px;
+  /* height: 170px; */
+  box-shadow: 3px 1px 10px rgba(0, 0, 0, 0.13);
+
+  overflow: hidden;
+  border-radius: 4px;
+  .one {
+    flex: 1.2;
+    height: 170px;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+
+  .two {
+    flex: 1.8;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  .food-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  .food-subtitle {
+    font-size: 13px;
+    line-height: 1.1;
+  }
+
+  .calo {
+    font-size: 14px;
+  }
+
+  button {
+    background: #8dd444;
+    outline: none;
+    border: none;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    color: white;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 2px 7px 0 rgb(120 137 149 / 25%);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin: 0 20px;
+  }
 `;
 
 const sectionsData = [
@@ -116,6 +186,8 @@ const sectionsData = [
   { id: 2, title: "GetLean" },
   { id: 3, title: "Breakfast" },
 ];
+
+const images = [one, two, three, four, five, six, seven, eight];
 
 const CalendarDay = ({ day, date, isActive }) => (
   <CalendarDate className={`center flex-col cursor ${isActive && "active"}`}>
@@ -210,9 +282,39 @@ const Current = () => {
           {sectionsData.map((section, index) => (
             <Section key={section.id} ref={refs.current[index]}>
               <h3>{section.title}</h3>
-              <div className="inner md-gap">
+              <div className="inner lg-gap">
                 {[...Array(7)].map((_, i) => (
-                  <Box key={i}>{i + 1}</Box>
+                  <Box
+                    key={i}
+                    className="flex cursor"
+                    title="Gluten Free Bownie (2 per container)"
+                  >
+                    <div className="one">
+                      <img src={images[i]} />
+                    </div>
+                    <div className="two flex flex-col lg-gap">
+                      <div>
+                        <p className="food-title">
+                          Gluten Free Bownie (2 per container)
+                        </p>
+                        <p className="food-subtitle">
+                          Clean Ingredients Decadent Brownie. Calorie info
+                          reflects one brownie.
+                        </p>
+                      </div>
+                      <div className="flex ai-center justify-between">
+                        <div className="flex xsm-gap center">
+                          <strong>130</strong>
+                          <p className="calo">Calories</p>
+                        </div>
+                        <div>
+                          <button>
+                            <IoMdCart size={18} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Box>
                 ))}
               </div>
             </Section>
