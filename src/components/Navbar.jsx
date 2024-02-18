@@ -1,9 +1,10 @@
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { MdArrowDropDown } from "react-icons/md";
-import React from "react";
+// import React from "react";
 import { SiVega } from "react-icons/si";
 import styled from "styled-components";
+import useCartStore from "../hook/useCart";
 import useMediaQuery from "../hook/useMediaQuery";
 import { useState } from "react"; // Import useState
 
@@ -16,6 +17,19 @@ const Container = styled.nav`
   background-color: white;
   .link {
     font-size: 15px;
+    position: relative;
+    .alert {
+      background-color: red;
+      position: absolute;
+      top: -9px;
+      right: -8px;
+      font-size: 12px;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      color: white;
+      font-weight: 600;
+    }
   }
 `;
 
@@ -73,6 +87,28 @@ const DropDown = styled.ul`
   }
 `;
 
+const navLinks = [
+  {
+    title: "Subscription Meal Selection",
+    to: "/subscription",
+  },
+  {
+    title: "A la Carte",
+    to: "/a-la-carte",
+  },
+  {
+    title: "Proteins by the Pounds",
+    to: "/proteins",
+  },
+  {
+    title: "Extras",
+    to: "/extras",
+  },
+  {
+    title: "Gift Card",
+    to: "/gift-card",
+  },
+];
 const Navbar = () => {
   const isDesktop = useMediaQuery({ minWidth: 768 });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
@@ -80,6 +116,8 @@ const Navbar = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown state
   };
+
+  const { cartItems } = useCartStore();
 
   return isDesktop ? (
     <Container className="flex ai-center justify-between">
@@ -97,18 +135,18 @@ const Navbar = () => {
             </div>
           </ShopNow>
           <DropDown isOpen={isDropdownOpen}>
-            <li
-              title="Hello"
-              onClick={() => {
-                toggleDropdown();
-              }}
-            >
-              <Link to={"/subscription"}>Subscription Meal Selection</Link>
-            </li>
-            <li title="Hello">A la Carte</li>
-            <li title="Hello">Proteins by the Pounds</li>
-            <li title="Hello">Extras</li>
-            <li title="Hello">Gift Card</li>
+            {navLinks.map((link, index) => (
+              <Link
+                to={link.to}
+                key={index}
+                title={link.title}
+                onClick={() => {
+                  toggleDropdown();
+                }}
+              >
+                <li to={link.to}>{link.title}</li>
+              </Link>
+            ))}
           </DropDown>
         </div>
       </div>
@@ -121,12 +159,12 @@ const Navbar = () => {
       </div>
       <div className="flex flex-1 jc-end lg-gap">
         <div className="link">
-          <Link to={"/grab"}>Grab & Go</Link>
-        </div>
-        <div className="link">
           <Link to={"/carts"}>
-            <HiOutlineShoppingBag size={20} />
+            <HiOutlineShoppingBag size={22} />
           </Link>
+          {cartItems.length > 0 && (
+            <div className="alert center">{cartItems.length}</div>
+          )}
         </div>
         <div className="link">
           <Link to={"/register"}>Sign up</Link>

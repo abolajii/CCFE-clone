@@ -62,6 +62,10 @@ input {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .grid {
   display: grid;
 }
