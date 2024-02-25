@@ -51,11 +51,20 @@ const Inner = styled.div`
 
   .two {
     position: sticky;
-    top: 75px;
+    top: 95px;
     flex-shrink: 0;
     margin-top: 10px;
     overflow: hidden;
     border-radius: 0 0 9px 9px;
+
+    .tag {
+      font-size: 13px;
+    }
+
+    .value {
+      font-size: 14px;
+      font-weight: 500;
+    }
 
     .bottom {
       background: #8dd444;
@@ -501,8 +510,8 @@ const Subscription = () => {
                         key={index}
                         className="single flex ai-center justify-between"
                       >
-                        <p>{option?.tag}:</p>
-                        <p>{option?.value}</p>
+                        <p className="tag">{option?.tag}:</p>
+                        <p className="value">{option?.value}</p>
                       </div>
                     );
                   })}
