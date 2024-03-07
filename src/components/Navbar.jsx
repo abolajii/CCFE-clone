@@ -1,5 +1,6 @@
+import { Link, NavLink } from "react-router-dom";
+
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { Link } from "react-router-dom";
 import { MdArrowDropDown } from "react-icons/md";
 // import React from "react";
 import { SiVega } from "react-icons/si";
@@ -15,6 +16,20 @@ const Container = styled.nav`
   z-index: 2;
   border-bottom: 1px solid #e7e7e7;
   background-color: white;
+
+  transition: all 0.3s ease;
+  a {
+    &:hover {
+      color: #8dd444;
+      transition: all 0.15s ease-in;
+    }
+
+    &.active {
+      color: #8dd444;
+      transition: all 0.15s ease-in;
+    }
+  }
+
   .link {
     font-size: 15px;
     position: relative;
@@ -123,7 +138,7 @@ const Navbar = () => {
     <Container className="flex ai-center justify-between">
       <div className="flex flex-1 ai-center md-gap">
         <div className="link">
-          <Link to={"/menu"}>Current Menu</Link>
+          <NavLink to={"/menu"}>Current Menu</NavLink>
         </div>
         <div className="relative">
           <ShopNow className="flex ai-center" onClick={toggleDropdown}>
@@ -136,16 +151,17 @@ const Navbar = () => {
           </ShopNow>
           <DropDown isOpen={isDropdownOpen}>
             {navLinks.map((link, index) => (
-              <Link
-                to={link.to}
-                key={index}
-                title={link.title}
-                onClick={() => {
-                  toggleDropdown();
-                }}
-              >
-                <li to={link.to}>{link.title}</li>
-              </Link>
+              <li key={index}>
+                <Link
+                  to={link.to}
+                  title={link.title}
+                  onClick={() => {
+                    toggleDropdown();
+                  }}
+                >
+                  {link.title}
+                </Link>
+              </li>
             ))}
           </DropDown>
         </div>
@@ -159,18 +175,18 @@ const Navbar = () => {
       </div>
       <div className="flex flex-1 jc-end lg-gap">
         <div className="link">
-          <Link to={"/carts"}>
+          <NavLink to={"/cart"}>
             <HiOutlineShoppingBag size={22} />
-          </Link>
+          </NavLink>
           {cartItems.length > 0 && (
             <div className="alert center">{cartItems.length}</div>
           )}
         </div>
         <div className="link">
-          <Link to={"/register"}>Sign up</Link>
+          <NavLink to={"/register"}>Sign up</NavLink>
         </div>
         <div className="link">
-          <Link to={"/login"}>Login</Link>
+          <NavLink to={"/login"}>Login</NavLink>
         </div>
       </div>
     </Container>

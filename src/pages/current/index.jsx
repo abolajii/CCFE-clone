@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import Container from "../../components/Container";
 import { IoMdCart } from "react-icons/io";
+import Modal from "./components/Modal";
 import eight from "../../assets/8.jpeg";
 import five from "../../assets/5.jpeg";
 import four from "../../assets/4.jpeg";
@@ -12,6 +13,8 @@ import six from "../../assets/6.jpeg";
 import styled from "styled-components";
 import three from "../../assets/3.jpeg";
 import two from "../../assets/2.jpeg";
+import useModal from "./hook/useModal";
+import useSelectedItem from "./hook/useSelectedItem";
 
 const Inner = styled.div`
   position: relative;
@@ -195,8 +198,13 @@ const CalendarDay = ({ day, date, isActive }) => (
     <p className="bold">{String(date).padStart(2, "0")}</p>
   </CalendarDate>
 );
+
 const Current = () => {
   const [active, setActive] = useState(1);
+
+  const { openModal } = useModal();
+
+  const { setSelectedItem } = useSelectedItem();
 
   const refs = useRef(
     Array(sectionsData.length)
@@ -253,7 +261,7 @@ const Current = () => {
           </div>
         </Notification>
         <div className="mx-auto date">
-          <p>February 2024</p>
+          <p>March 2024</p>
           <div className="flex sm-gap">
             {dates.map((date, index) => (
               <CalendarDay
@@ -281,6 +289,7 @@ const Current = () => {
 
           {sectionsData.map((section, index) => (
             <Section key={section.id} ref={refs.current[index]}>
+              <Modal />
               <h3>{section.title}</h3>
               <div className="inner lg-gap">
                 {[...Array(7)].map((_, i) => (
@@ -308,7 +317,16 @@ const Current = () => {
                           <p className="calo">Calories</p>
                         </div>
                         <div>
-                          <button>
+                          <button
+                            onClick={() => {
+                              openModal();
+                              setSelectedItem({
+                                title: " Gluten Free Bownie (2 per container)",
+                                subTitle:
+                                  "Clean Ingredients Decadent Brownie. Calorie info reflects one brownie.",
+                              });
+                            }}
+                          >
                             <IoMdCart size={18} />
                           </button>
                         </div>

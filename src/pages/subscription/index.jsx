@@ -5,6 +5,7 @@ import { MdArrowDropDown } from "react-icons/md";
 import React from "react";
 import styled from "styled-components";
 import useCartStore from "../../hook/useCart";
+import useSubscriptionStore from "./hook/useSubscription";
 
 const Inner = styled.div`
   position: relative;
@@ -318,12 +319,12 @@ const CalendarDay = ({ day, date, isActive, onClick }) => (
 
 const Subscription = () => {
   const [active, setActive] = React.useState(1);
-  const [selectedDetails, setSelectedDetails] = React.useState([]);
+  const { selectedDetails, setSelectedDetails } = useSubscriptionStore();
   const [selectedOptionDesc, setSelectedOptionDesc] = React.useState("");
   const [activeDate, setActiveDate] = React.useState(null);
   const [detailsVisible, setDetailsVisible] = React.useState(true);
 
-  const { cartItems, setCartItems } = useCartStore();
+  const { setIsCart } = useCartStore();
 
   const today = new Date();
   const weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -366,8 +367,8 @@ const Subscription = () => {
       }
       setActive(index + 1);
 
-      if (index === 6) {
-        setCartItems([...cartItems, selectedDetails]);
+      if (index >= 6) {
+        setIsCart(true);
       }
     }
   };
