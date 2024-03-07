@@ -19,7 +19,7 @@ const Container = styled.div`
   .register-subtitle {
     color: #2d2d2d;
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
   .terms {
@@ -96,7 +96,7 @@ const BackgroundImage = styled.div`
   }
 `;
 
-const Login = () => {
+const ForgotPassword = () => {
   return (
     <Container>
       <div className="flex">
@@ -106,29 +106,19 @@ const Login = () => {
           </BackgroundImage>
         </div>
         <div className="flex-1">
-          <div className="form-container auto">
+          <div className="form-container auto ">
             <div className="flex jc-end ai-center">
               <TiArrowLeft size={18} color="#8dd444" />
               <Link className="link" to={"/"}>
                 Back to Homepage
               </Link>
             </div>
-            <p className="register-title">Log In to Clean Creations</p>
-            <p className="register-subtitle">
-              To access your account please login with your email address and
-              password.
-            </p>
+            <p className="register-title">Recover your password</p>
 
             {/* FORM */}
             <form>
               <div className="flex flex-col xsm-gap">
                 <label>Username or email *</label>
-                <div className="input-container">
-                  <input />
-                </div>
-              </div>
-              <div className="flex flex-col xsm-gap">
-                <label>Password *</label>
                 <div className="input-container">
                   <input />
                 </div>
@@ -139,10 +129,10 @@ const Login = () => {
                 <Link to={"/register"}>Don't have an account ?</Link>
               </div>
               <div>
-                <Link to={"/forgot"}>Forgot Password ?</Link>
+                <Link to={"/login"}>Back to Login ?</Link>
               </div>
             </div>
-            <button>Log in</button>
+            <button>Recover Password</button>
           </div>
         </div>
       </div>
@@ -150,4 +140,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
