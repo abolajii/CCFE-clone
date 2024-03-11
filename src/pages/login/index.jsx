@@ -2,8 +2,21 @@ import { Link } from "react-router-dom";
 import { TiArrowLeft } from "react-icons/ti";
 import bg from "../../assets/img_files/227.jpg";
 import styled from "styled-components";
+import useMediaQuery from "../../hook/useMediaQuery";
 
 const Container = styled.div`
+  .p-2 {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    .form-container {
+      width: 100%;
+    }
+  }
+
   .link {
     font-size: 15px;
     color: #8dd444;
@@ -17,8 +30,8 @@ const Container = styled.div`
   }
 
   .register-subtitle {
-    color: #2d2d2d;
-    font-size: 16px;
+    color: #6c6c6c;
+    font-size: 14px;
     margin-bottom: 20px;
   }
 
@@ -37,7 +50,7 @@ const Container = styled.div`
     color: #2d2d2d;
     font-size: 19px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     margin-top: 70px;
   }
 
@@ -97,7 +110,9 @@ const BackgroundImage = styled.div`
 `;
 
 const Login = () => {
-  return (
+  const isDesktop = useMediaQuery({ minWidth: 768 });
+
+  return isDesktop ? (
     <Container>
       <div className="flex">
         <div className="flex-1">
@@ -144,6 +159,49 @@ const Login = () => {
             </div>
             <button>Log in</button>
           </div>
+        </div>
+      </div>
+    </Container>
+  ) : (
+    <Container>
+      <div className="flex-1 p-2">
+        <div>
+          <div className="flex jc-end ai-center">
+            <TiArrowLeft size={18} color="#8dd444" />
+            <Link className="link" to={"/"}>
+              Back to Homepage
+            </Link>
+          </div>
+          <p className="register-title">Log In to Clean Creations</p>
+          <p className="register-subtitle">
+            To access your account please login with your email address and
+            password.
+          </p>
+
+          {/* FORM */}
+          <form>
+            <div className="flex flex-col xsm-gap">
+              <label>Username or email *</label>
+              <div className="input-container">
+                <input />
+              </div>
+            </div>
+            <div className="flex flex-col xsm-gap">
+              <label>Password *</label>
+              <div className="input-container">
+                <input />
+              </div>
+            </div>
+          </form>
+          <div className="flex ai-center justify-between">
+            <div>
+              <Link to={"/register"}>Don't have an account ?</Link>
+            </div>
+            <div>
+              <Link to={"/forgot"}>Forgot Password ?</Link>
+            </div>
+          </div>
+          <button>Log in</button>
         </div>
       </div>
     </Container>

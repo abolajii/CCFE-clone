@@ -5,6 +5,7 @@ import { MdClose } from "react-icons/md";
 import React from "react";
 import eight from "../../../assets/1.jpeg";
 import styled from "styled-components";
+import useCartStore from "../../../hook/useCart";
 import useModal from "../hook/useModal";
 import useSelectedItem from "../hook/useSelectedItem";
 
@@ -167,11 +168,21 @@ const Modal = () => {
   const { isOpen, closeModal } = useModal();
   const { selectedItem } = useSelectedItem();
   const [value, setValue] = React.useState(0);
+  const { cartItems, setCartItems } = useCartStore();
 
   const handleClick = (tag) => {
     if (tag === "inc") {
       if (value >= 0) {
         setValue((prev) => prev + 1);
+        setCartItems([
+          ...cartItems,
+          ...[
+            {
+              tag: "A'clore",
+              qty: value,
+            },
+          ],
+        ]);
       }
     } else {
       if (value > 0) {

@@ -323,8 +323,7 @@ const Subscription = () => {
   const [selectedOptionDesc, setSelectedOptionDesc] = React.useState("");
   const [activeDate, setActiveDate] = React.useState(null);
   const [detailsVisible, setDetailsVisible] = React.useState(true);
-
-  const { setIsCart } = useCartStore();
+  const { setCartItems } = useCartStore();
 
   const today = new Date();
   const weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -368,7 +367,7 @@ const Subscription = () => {
       setActive(index + 1);
 
       if (index >= 6) {
-        setIsCart(true);
+        setCartItems([selectedDetails]);
       }
     }
   };

@@ -18,6 +18,7 @@ const Container = styled.nav`
   background-color: white;
 
   transition: all 0.3s ease;
+
   a {
     &:hover {
       color: #8dd444;
@@ -46,6 +47,10 @@ const Container = styled.nav`
       font-weight: 600;
     }
   }
+`;
+
+const MobileNav = styled.div`
+  padding: 15px 10px;
 `;
 
 const HomeLogo = styled.div`
@@ -87,7 +92,9 @@ const DropDown = styled.ul`
     ${({ isOpen }) => (isOpen ? "0" : "-10px")}
   ); /* Apply translateY based on isOpen state */
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Add transition */
-
+  a li {
+    color: black;
+  }
   li {
     padding: 9px 0px;
     font-size: 14px;
@@ -109,19 +116,19 @@ const navLinks = [
   },
   {
     title: "A la Carte",
-    to: "/a-la-carte",
+    // to: "/a-la-carte",
   },
   {
     title: "Proteins by the Pounds",
-    to: "/proteins",
+    // to: "/proteins",
   },
   {
     title: "Extras",
-    to: "/extras",
+    // to: "/extras",
   },
   {
     title: "Gift Card",
-    to: "/gift-card",
+    // to: "/gift-card",
   },
 ];
 const Navbar = () => {
@@ -151,17 +158,16 @@ const Navbar = () => {
           </ShopNow>
           <DropDown isOpen={isDropdownOpen}>
             {navLinks.map((link, index) => (
-              <li key={index}>
-                <Link
-                  to={link.to}
-                  title={link.title}
-                  onClick={() => {
-                    toggleDropdown();
-                  }}
-                >
-                  {link.title}
-                </Link>
-              </li>
+              <Link
+                to={link.to}
+                title={link.title}
+                onClick={() => {
+                  toggleDropdown();
+                }}
+                key={index}
+              >
+                <li>{link.title}</li>
+              </Link>
             ))}
           </DropDown>
         </div>
@@ -191,7 +197,7 @@ const Navbar = () => {
       </div>
     </Container>
   ) : (
-    <Container>Nav</Container>
+    <MobileNav>Inner</MobileNav>
   );
 };
 

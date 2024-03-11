@@ -66,7 +66,15 @@ const EmptyLabel = styled(Day)`
   }
 `;
 
-const Calendar = ({ selectedDate, setSelectedDate, setDate, date, close }) => {
+const Calendar = ({
+  clicked,
+  selectedDate,
+  setSelectedDate,
+  setDate,
+  date,
+  close,
+  setClicked,
+}) => {
   const previousMonth = () => {
     const newDate = new Date(date.getFullYear(), date.getMonth() - 1, 1);
     setDate(newDate);
@@ -87,6 +95,9 @@ const Calendar = ({ selectedDate, setSelectedDate, setDate, date, close }) => {
   const handleDayClick = (day) => {
     setSelectedDate(day);
     close();
+    if (!clicked) {
+      setClicked(true);
+    }
   };
 
   const renderCalendar = () => {

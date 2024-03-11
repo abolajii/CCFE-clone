@@ -1,7 +1,7 @@
 import { MdClose } from "react-icons/md";
 /* eslint-disable react/prop-types */
 import Navbar from "./Navbar";
-import React from "react";
+// import React from "react";
 import styled from "styled-components";
 import useCartStore from "../hook/useCart";
 import { useLocation } from "react-router-dom";
@@ -31,12 +31,12 @@ const CloseIcon = styled.button`
 
 const Container = ({ children }) => {
   const location = useLocation();
-  const { cartItems } = useCartStore();
+  const { isCart } = useCartStore();
 
   const showCart =
     location.pathname !== "/subscription" &&
     location.pathname !== "/cart" &&
-    cartItems.length > 0;
+    isCart;
 
   return (
     <div>
