@@ -1,8 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 
+import { GiHamburgerMenu } from "react-icons/gi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { MdArrowDropDown } from "react-icons/md";
-// import React from "react";
+import React from "react";
 import { SiVega } from "react-icons/si";
 import styled from "styled-components";
 import useCartStore from "../hook/useCart";
@@ -16,7 +17,6 @@ const Container = styled.nav`
   z-index: 2;
   border-bottom: 1px solid #e7e7e7;
   background-color: white;
-
   transition: all 0.3s ease;
 
   a {
@@ -53,6 +53,38 @@ const MobileNav = styled.div`
   padding: 15px 10px;
 `;
 
+const MobileContainer = styled.div`
+  .drop-down,
+  .nav-dropdown {
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.5s;
+  }
+
+  .drop-down.active {
+    height: 190px;
+    transition: height 0.5s;
+    overflow-y: scroll;
+  }
+
+  .nav-dropdown.active {
+    height: 90px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    font-size: 19px;
+  }
+
+  button {
+    width: 50%;
+    font-size: 19px;
+  }
+`;
+
 const HomeLogo = styled.div`
   width: 43px;
   height: 43px;
@@ -67,7 +99,7 @@ const HomeLogo = styled.div`
   }
 `;
 
-const ShopNow = styled.div`
+const ShopNow = styled.button`
   background-color: #68a368;
   padding: 10px 15px;
   font-size: 15px;
@@ -134,7 +166,7 @@ const navLinks = [
 const Navbar = () => {
   const isDesktop = useMediaQuery({ minWidth: 768 });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
-
+  const [active, setActive] = React.useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown state
   };
@@ -197,7 +229,68 @@ const Navbar = () => {
       </div>
     </Container>
   ) : (
-    <MobileNav>Inner</MobileNav>
+    <MobileContainer>
+      <MobileNav className="flex ai-center justify-between ">
+        <Link to={"/"}>
+          <HomeLogo className="center cursor">
+            <SiVega size={27} />
+          </HomeLogo>
+        </Link>
+        <div className="link">
+          <NavLink to={"/cart"}>
+            <HiOutlineShoppingBag size={25} />
+          </NavLink>
+          {cartItems.length > 0 && (
+            <div className="alert center">{cartItems.length}</div>
+          )}
+        </div>
+        <div className="link">
+          <NavLink to={"/login"}>Login</NavLink>
+        </div>
+        <div className="link">
+          <NavLink to={"/register"}>Sign up</NavLink>
+        </div>
+        <GiHamburgerMenu size={20} onClick={() => setActive(!active)} />
+      </MobileNav>
+      {/*  */}
+      <ul
+        className={`drop-down center flex-col md-gap ${active ? "active" : ""}`}
+      >
+        {/* <Link>
+          <li>Current Menu</li>
+        </Link> */}
+        <div className="center flex-col">
+          {/* <ShopNow onClick={toggleDropdown}>
+            <div className="center">
+              <span>Shop</span>
+              <span>
+                <MdArrowDropDown size={14} />
+              </span>
+            </div>
+          </ShopNow> */}
+          {/* <div className="nav-dropdown active">
+            {navLinks.map((link, index) => (
+              <Link
+                to={link.to}
+                title={link.title}
+                onClick={() => {
+                  // toggleDropdown();
+                }}
+                key={index}
+              >
+                <li>{link.title}</li>
+              </Link>
+            ))}
+          </div> */}
+        </div>
+        <Link>
+          <li>Grab & Go</li>
+        </Link>
+        <Link>
+          <li>Blog</li>
+        </Link>
+      </ul>
+    </MobileContainer>
   );
 };
 

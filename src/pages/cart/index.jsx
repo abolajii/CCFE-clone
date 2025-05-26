@@ -139,8 +139,6 @@ const Carts = () => {
   const { cartItems } = useCartStore();
   const { selectedDetails } = useSubscriptionStore();
 
-  console.log({ cartItems, selectedDetails });
-
   const result = arrayToKeyValuePairs(selectedDetails || []);
 
   if (cartItems.length === 0) {
